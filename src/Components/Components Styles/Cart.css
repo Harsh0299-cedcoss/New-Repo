@@ -1,0 +1,122 @@
+#cartContainer{
+     padding: 17vh 5vh 5vh 5vh;
+     width: 85%;
+     margin: auto;
+     color: var(--black);
+}
+#cartContainer>h1{
+     font-weight: 500;
+     font-size: 3.5vh;
+     padding-left: 5vh;
+     padding-bottom: 3vh;
+}
+#cartListContainer{
+     width: 100%;
+}
+
+#cartListContainer .emptyCartContainer{
+     display: flex;
+     height: 50vh;
+     flex-direction: column;
+     align-items: center;
+     justify-content: space-between;
+}
+
+#cartListContainer .emptyCartContainer img{
+     filter: invert(var(--invert));
+}
+
+.continueShopping button{
+     padding: 1vh 2vh;
+     background-color: var(--black);
+     color: var(--white);
+     font-size: 2vh;
+     cursor: pointer;
+     font-weight: 700;
+     border: none;
+     border-radius: 1vh;
+}
+
+.continueShopping button:hover{
+     background-color: var(--main);
+}
+
+table{
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-evenly;
+     align-items: center;
+     border-collapse: collapse;
+}
+table tr{
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-start;
+}
+table tr th{
+     flex: 1;
+     width: 100%;
+     display: flex;
+     align-items: flex-start;
+     justify-content: space-around;
+     background-color: var(--bColor);
+     font-weight: 700;
+     border:.1vh solid;
+     padding: 2vh 0 2vh 2vh;
+}
+table tr td{
+     flex: 1;
+     width: 100%;
+     padding-left: 2vh;
+     display: flex;
+     min-height: 15vh;
+     font-size: 3vh;
+     justify-content: space-around;
+     align-items: center;
+     border: .1vh solid;
+}
+table tr td:nth-child(2),table tr th:nth-child(2){
+     flex: 4;
+     display: flex;
+     align-items: center;
+     justify-content: flex-start;
+}
+table tr td div{
+     padding-left:1rem;
+}
+
+table tr td img{
+     width: 8vh;
+}
+
+table tr td .fa-circle-plus, table tr td .fa-circle-minus{
+     font-size: 4vh;
+     color: var(--black);
+     cursor: pointer;
+     padding: 0 2vh;
+}
+table tr td:nth-child(3){
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: space-evenly;
+}
+
+table tr td:nth-child(3) > div{
+     display: flex;
+     align-items:center;
+     font-size: 2.5vh;
+     justify-content: space-around;
+}
+
+table tr td:nth-child(3)>p{
+     cursor: pointer;
+     font-weight: 600;
+     font-size: 2.5vh;
+
+}
+table tr td:nth-child(3)>p:hover{
+     color: red;
+}

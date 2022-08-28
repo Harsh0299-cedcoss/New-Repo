@@ -1,0 +1,141 @@
+#footerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    background-color: black;
+    color: white;
+    border-top: .1vh solid white;
+    padding: 5vh 0;
+}
+
+#footerDetails {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6vh 5vh;
+    gap: 5vh;
+}
+
+#footerDetails .contact {
+    flex: 30%;
+    border-right: .1vh solid;
+    padding-right: 5vh;
+}
+
+#footerDetails .contact h1 {
+    font-weight: 600;
+    padding-bottom: 3vh;
+}
+
+#footerDetails .contact p {
+    font-size: 3vh;
+    text-align: start;
+    padding: 1vh 0;
+}
+
+#footerDetails .contact p i {
+    padding-right: 1vh;
+}
+
+#footerDetails .details {
+    flex: 70%;
+    text-align: justify;
+    font-size: 2.5vh;
+    line-height: 2rem;
+}
+
+#footerContainer #copyright {
+    text-align: center;
+    width: 80%;
+    padding-top: 3vh;
+    border-top: .1vh solid white;
+    font-size: 3vh;
+}
+
+#help{
+    position: fixed;
+    color: var(--bColor);
+    top: 87%;
+    left: 1%;
+    font-size: 10vh;
+    cursor: pointer;
+    border-radius: 10%;
+    background: grey;
+    z-index: 10000;
+}
+#backToTop{
+    position: fixed;
+    bottom: 60%;
+    right: 3%;
+    color: var(--black);
+    z-index: 10000;
+    font-size: 10vh;
+    width: 3%;
+    visibility: hidden;
+}
+#footerContainer:hover #backToTop{
+    visibility: visible;
+}
+
+
+
+@media screen and (max-width: 1450px) {
+    #footerDetails {
+        width: 95%;
+    }
+
+    #footerDetails .details {
+        font-size: 2vh;
+    }
+
+    #footerDetails .contact p {
+        font-size: 2vh;
+    }
+}
+
+@media screen and (max-width: 980px) {
+
+    #footerDetails{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    #footerDetails .details {
+        font-size: 2vh;
+    }
+
+    #footerDetails .contact p {
+        font-size: 2vh;
+    }
+
+    #backToTop{
+        font-size: 5vh;
+    }
+    #help{
+        font-size: 5vh;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    #footerDetails{
+        width: 100%;
+    }
+    #footerDetails .details {
+        display: none;
+    }
+    #backToTop{
+        font-size: 3vh;
+    }
+    #help{
+        font-size: 3vh;
+    }
+}

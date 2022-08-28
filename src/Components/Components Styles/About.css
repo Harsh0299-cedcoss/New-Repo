@@ -1,0 +1,131 @@
+
+
+#aboutContainer{
+    padding: 4rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--black);
+    background-color: var(--bColor);
+}
+
+#aboutContainer>h1{
+    font-size: 5vh;
+    font-weight: 900;
+}
+
+#aboutContent{
+    padding-top: 3rem;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#aboutContent hr{
+    display: none;
+}
+#aboutUS{
+    flex: 1;
+    padding-left: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    text-align: right;
+    color: var(--black);
+}
+#aboutUS h1{
+    font-size: 3vh;
+    font-weight: 600;
+    margin-bottom: 1.5rem ;
+}
+#aboutUS p{
+    font-size: 2vh;
+    line-height: 3vh;
+    font-weight: 400;
+    margin-bottom: 2rem ;
+}
+
+#aboutUS button{
+    font-size: 2.3vh;
+    background-color: var(--black);
+    color: var(--white);
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+#ourHistory{
+    flex: 1;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    text-align: left;
+    color: var(--black);
+}
+
+#ourHistory h1{
+    font-size: 3vh;
+    font-weight: 600;
+    margin-bottom: 1.5rem ;
+}
+#ourHistory p{
+    font-size: 2vh;
+    line-height: 3vh;
+    font-weight: 400;
+    margin-bottom: 2rem ;
+}
+
+#ourHistory button{
+    font-size: 2.3vh;
+    background-color: var(--black);
+    color: var(--white);
+    padding: .5rem 2rem;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#aboutContainer vl{
+    width: 1px;
+    height: 300px;
+    margin: 2rem 5rem;
+    border: 1px solid var(--black);
+}
+
+
+@media screen and (max-width:750px) {
+    
+    #aboutContainer>h1{
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+    #aboutContent{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #aboutContent vl{
+        display: none;
+    }
+    #aboutContent hr{
+        display: flex;
+        width: 80%;
+        margin: 2rem 5rem;
+        border: 1px solid var(--black);
+    }
+    #ourHistory{
+        padding-left: 1rem;
+    }
+    #aboutUS{
+        padding-right: 1rem;
+    }
+}

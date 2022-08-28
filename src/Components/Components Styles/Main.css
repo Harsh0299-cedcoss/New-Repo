@@ -1,0 +1,113 @@
+#mainContainer{
+    padding-top: 12vh;
+}
+
+#carouselMain div img {
+    position: relative;
+    width: 100% !important;
+    cursor: pointer;
+    height: 30% !important;
+}
+
+.slick-next:before,
+.slick-prev::before {
+    font-size: 50px;
+    cursor: pointer;
+    color: rgb(146, 145, 145);
+}
+
+.slick-next {
+    position: absolute;
+    z-index: 1;
+    right:5%;
+}
+
+.slick-prev {
+    position: absolute;
+    z-index: 1;
+    left: 3%;
+}
+
+#testimonials {
+    padding: 3% 0;
+    color: var(--black);
+    background-color: var(--bg);
+    width: 100%;
+}
+
+#testimonials>h1 {
+    text-align: center;
+    padding-bottom: 3%;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+#testimonialSlider {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid;
+    height: 460px;
+}
+
+.cardContainer {
+    width: 90%;
+    margin: 1rem auto;
+    height: 400px;
+    padding: 1rem 2rem;
+    color: var(--black);
+    background-color: var(--bg);
+    border: 1px solid var(--black);
+    border-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 23px -5px rgba(49, 85, 191, 0.84);
+    cursor: pointer;
+}
+
+.cardContainer h1 {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.cardContainer p {
+    font-size: 14px;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.cardContainer img {
+    width: 100px;
+    min-height: 60px;
+    border-radius: 1vh;
+}
+
+.cardContainer h3 {
+    font-size: large;
+    font-weight: 500;
+    padding-top: 1rem;
+}
+
+
+@media screen and (max-width:650px) {
+    #testimonials>h1 {
+        padding: 5% 0;
+        font-size: 25px;
+        font-weight: 900;
+    }
+    .slick-next:before,
+    .slick-prev::before {
+        font-size: 30px;
+    }
+    #testimonialSlider{
+        border: none;
+    }
+    #carouselMain div img {
+        position: relative;
+        width: 100% !important;
+        cursor: pointer;
+        height: 40vh !important;
+    }
+}
