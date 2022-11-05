@@ -1,0 +1,55 @@
+Functions Component --->
+
+  {itemsCount && <div style={{ display: "flex", alignItems: "center", margin: '1rem', width: "100%", justifyContent: "center" }} >
+                <Pagination label={<Text>{itemsCount.data.count < 50 ? pageState.page / 1 : `${pageState.page} / ${Math.ceil(itemsCount.data.count / 50)}`} </Text>}
+                hasPrevious={pageState.page !== 1} onPrevious={() => {
+                    dataValue = null
+                    dispatch(PAGINATE({ count: pageState.page - 1, prev: true }))
+                }}
+                hasNext={itemsCount.data.count > 50}
+                onNext={() => {
+                    dataValue = null
+                    dispatch(PAGINATE({ count: pageState.page + 1, next: true }))
+                }} /></div>
+            }
+            
+            
+            use effect ---> 
+            
+              // To set Next and Prev token from API
+    useEffect(() => {
+        if (data) {
+            itemsCount.data.count < 50 && dispatch(RESET_PAGE(1))
+            dispatch(NEXT_PAGE(data.data.next))
+            dispatch(PREV_PAGE(data.data.prev))
+        }
+    }, [data, dispatch, itemsCount])
+    
+    
+    // Reducer Function for Pagination
+
+export const paginationSlice = createSlice({
+    name: 'paginationSlice', initialState: JSON.parse(sessionStorage.getItem('pagination')) || { page: 1, next: '', prev: '', params: '' },
+    reducers: {
+        RESET_PAGE: (state, action) => {
+            state.page = action.payload;
+        },
+        NEXT_PAGE: (state, action) => {
+            state.next = action.payload
+        },
+        PREV_PAGE: (state, action) => {
+            state.prev = action.payload
+        },
+        PAGINATE: (state, action) => {
+            state.page = action.payload.count;
+            if (action.payload.next) {
+                state.params = '&next=' + state.next
+            }
+            else if (action.payload.prev) {
+                state.page === 1 ? state.params = '' : state.params = '&prev=' + state.prev
+            }
+            sessionStorage.setItem('pagination', JSON.stringify(state))
+        }
+    }
+})
+export const { RESET_PAGE, NEXT_PAGE, PREV_PAGE, PAGINATE } = paginationSlice.actions
