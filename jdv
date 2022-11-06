@@ -1,0 +1,155 @@
+import { Badge, Card, Icon, Modal, Stack, Tabs } from "@shopify/polaris";
+import React from "react";
+import { useState } from "react";
+import { RiskMinor, ExternalMinor } from "@shopify/polaris-icons";
+
+const ErrorModal = ({ errorModal, setErrorModal }) => {
+  const [selectedTab, setTabs] = useState(0);
+  const handleSelectedTab = (selectedTabIdx) => setTabs(selectedTabIdx);
+
+  const handleErrorModal = () => {
+    setErrorModal((prev) => {
+      return { ...prev, open: false };
+    });
+  };
+
+  let productErrLength = 0;
+  const productErrors = errorModal.type === "product" && (
+    <Card>
+      {errorModal.data?.items
+        .filter(
+          (item) => item.source_product_id === errorModal.data.source_product_id
+        )
+        .map((item) => {
+          productErrLength = item?.error.product.length;
+          return item?.error.product.map((err, i) => (
+            <Card.Section title="Product" key={i}>
+              <Stack>
+                <Icon source={RiskMinor} color="critical" />
+                <span>{err}</span>
+              </Stack>
+            </Card.Section>
+          ));
+        })}
+    </Card>
+  );
+
+  let variantErrLength = 0;
+  const variantErrors = (
+    <Card>
+      {errorModal.data?.items
+        .filter(
+          (item) => item.source_product_id !== errorModal.data.source_product_id
+        )
+        .map((item) => {
+          variantErrLength = item?.error.product.length || 0;
+          return item?.error.product.map((err, i) => (
+            <Card.Section title="Product" key={i}>
+              <Stack>
+                <Icon source={RiskMinor} color="critical" />
+                <span>{err}</span>
+              </Stack>
+            </Card.Section>
+          ));
+        })}
+    </Card>
+  );
+
+  return (
+    <Modal
+      open={errorModal.open}
+      onClose={handleErrorModal}
+      primaryAction={{
+        content: "Fix Errors",
+      }}
+      title="Errors"
+      footer={
+        <>
+          Can’t find the solution? Contact us through
+          <a
+            target="_blank"
+            className="Polaris-Link"
+            href="mailto:channel-support@cedcommerce.com"
+            rel="noopener noreferrer"
+            data-polaris-unstyled="true"
+          >
+            Email
+          </a>
+          ,
+          <a
+            target="_blank"
+            className="Polaris-Link"
+            href="https://join.skype.com/xV5r9L7s6jFG"
+            rel="noopener noreferrer"
+            data-polaris-unstyled="true"
+          >
+            Skype
+          </a>{" "}
+          or{" "}
+          <a
+            target="_blank"
+            className="Polaris-Link"
+            href="https://chat.whatsapp.com/GOFQ2Gsg7rdBjBSzE9NGAA"
+            rel="noopener noreferrer"
+            data-polaris-unstyled="true"
+          >
+            Whatsapp
+          </a>
+        </>
+      }
+    >
+      <Card title="Errors">
+        <Tabs
+          fitted
+          tabs={[
+            {
+              id: "product",
+              content: (
+                <span>
+                  Product Errors <Badge>{productErrLength}</Badge>
+                </span>
+              ),
+            },
+            {
+              id: "variant",
+              content: (
+                <span>
+                  Variant Errors <Badge>{variantErrLength}</Badge>
+                </span>
+              ),
+            },
+          ]}
+          selected={selectedTab}
+          onSelect={handleSelectedTab}
+        >
+          {selectedTab === 0 &&
+            (errorModal.type === "product" && productErrLength > 0 ? (
+              productErrors
+            ) : (
+              <Stack vertical alignment="center">
+                <img
+                  src="https://multi-account.sellernext.com/apps/amazon-multi/902e6225075f4dc2f9fe944f578a4ad2.png"
+                  alt=""
+                />
+                <span> No Error in Product</span>
+              </Stack>
+            ))}
+          {selectedTab === 1 &&
+            (variantErrLength > 0 ? (
+              variantErrors
+            ) : (
+              <Stack vertical alignment="center">
+                <img
+                  src="https://multi-account.sellernext.com/apps/amazon-multi/902e6225075f4dc2f9fe944f578a4ad2.png"
+                  alt=""
+                />
+                <span> No Error in Variant</span>
+              </Stack>
+            ))}
+        </Tabs>
+      </Card>
+    </Modal>
+  );
+};
+
+export default ErrorModal;
