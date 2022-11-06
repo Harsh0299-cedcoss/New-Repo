@@ -1,0 +1,155 @@
+import { Combobox, Icon, Listbox, Stack, Text } from "@shopify/polaris";
+import React, { useEffect, useState } from "react";
+import useFetch from "../../../helper/useFetch";
+import { getSearchSuggestions, Loading } from "../../../utils/Constants";
+import { SearchMinor } from "@shopify/polaris-icons";
+import { useDispatch } from "react-redux";
+import { setTextValue, setType } from "../../../redux/FiltersReducer";
+
+const HiglightText = ({ text = "", match = "" }) => {
+  if (!match.trim()) return <span>{text}</span>;
+  const regex = new RegExp(`(${match})`, "gi");
+  const parts = text.split(regex);
+  return (
+    <span>
+      {parts
+        .filter((part) => part)
+        .map((part, i) =>
+          regex.test(part) ? <b key={i}>{part}</b> : <span key={i}>{part}</span>
+        )}
+    </span>
+  );
+};
+
+const ProductSearch = () => {
+  const [input, setInput] = useState("");
+  const [options, setOptions] = useState([]);
+  const handleInputChange = (value) => setInput(value);
+
+  const [fetchedData, getData] = useFetch("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!input || input.length < 2) return;
+    getData(
+      getSearchSuggestions +
+        "query=" +
+        input +
+        "&target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9",
+      "GET",
+      {}
+    );
+  }, [input, getData]);
+
+  useEffect(() => {
+    if (!input || input.length < 2) {
+      setOptions([]);
+      return;
+    }
+    if (!fetchedData || fetchedData === Loading || !fetchedData.success) return;
+    let options = [];
+    fetchedData.data.forEach((element) => {
+      let obj = {
+        main_image: element.main_image,
+        container_id: element.container_id,
+      };
+      let title = element.title.toLowerCase();
+      let brand = element.brand.toLowerCase();
+      let product_type = element.product_type.toLowerCase();
+      if (title.indexOf(input.toLowerCase()) > -1) {
+        obj.title = <HiglightText text={title} match={input.toLowerCase()} />;
+        obj.text = element.container_id;
+
+        obj.type = "Title";
+        options.push(obj);
+      }
+      if (brand.indexOf(input.toLowerCase()) > -1) {
+        obj.title = element.title;
+        obj.text = (
+          <HiglightText text={"Brand: " + brand} match={input.toLowerCase()} />
+        );
+
+        obj.type = "Brand";
+        options.push(obj);
+      }
+      if (product_type.indexOf(input.toLowerCase()) > -1) {
+        obj.title = element.title;
+        obj.text = (
+          <HiglightText
+            text={"Product Type: " + product_type}
+            match={input.toLowerCase()}
+          />
+        );
+
+        obj.type = "Product_type";
+        options.push(obj);
+      }
+    });
+    setOptions([...options]);
+  }, [fetchedData, input]);
+
+  const handleSelect = (value) => {
+    dispatch(setType({ type: value.type, search: input }));
+    dispatch(
+      setTextValue({ key: "Container_id", textValue: value.container_id })
+    );
+    setInput("");
+  };
+
+  return (
+    <div>
+      <Combobox
+        activator={
+          <Combobox.TextField
+            prefix={<Icon source={SearchMinor} />}
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Search with Title, Vendor, or Product Type"
+            autoComplete="off"
+          />
+        }
+        willLoadMoreOptions={input.length > 1}
+      >
+        {input.length > 1 ? (
+          <Listbox autoSelection="NONE" onSelect={handleSelect}>
+            {fetchedData && fetchedData === Loading ? (
+              <Listbox.Loading accessibilityLabel="Loading" />
+            ) : options.length > 0 ? (
+              options.map((element, i) => {
+                return (
+                  <Listbox.Action key={i} value={element}>
+                    <Stack spacing="tight" wrap={false}>
+                      <img
+                        src={
+                          element.main_image ||
+                          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
+                        }
+                        alt=""
+                        width="30px"
+                        style={{
+                          borderRadius: "5px",
+                          border: "1px solid #E1E3E5",
+                        }}
+                      />
+                      <Stack.Item fill>
+                        <Text>{element.title}</Text>
+                        <Text variant="bodySm">{element.text}</Text>
+                      </Stack.Item>
+                    </Stack>
+                  </Listbox.Action>
+                );
+              })
+            ) : (
+              <Stack>
+                <Icon source={SearchMinor} />
+                <Text> No Search Result Found</Text>
+              </Stack>
+            )}
+          </Listbox>
+        ) : null}
+      </Combobox>
+    </div>
+  );
+};
+
+export default ProductSearch;
